@@ -64,7 +64,7 @@ GROUPS = [
     }
 ]
 ```
-As showns below, SERVERS is a list of servers. A server is a supervisor instance.The name attribute is used to identify a server.
+As showns above, SERVERS is a list of servers. A server is a supervisor instance.The name attribute is used to identify a server.
 
 > Notice: The name attribute must be unique!
 
@@ -104,4 +104,4 @@ programs=celery,test
 - Performance Imporve
 - UI Improve
 - Exception Handling
-
+- Pattern Match
