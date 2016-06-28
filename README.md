@@ -6,10 +6,11 @@
 Supervisor provides a web tool to manage programs which looks like ![](http://ww3.sinaimg.cn/large/b8b708a7gw1f5b87cx8nij20mm07k3zl
 )
 
-But its default tool just supports single node. Maybe we have hundreds of mechines to deploy out applications using supervisor. 
+But it just supports single node. Maybe we have hundreds of mechines to deploy out applications using supervisor. 
 If we manage these machines one by one, it's a horrible day.
 
 This tool is developed to manage distributed applications centrally.The module used are:
+- python2.7
 - Flask  web server
 - bootstrap + jquery UI
 
