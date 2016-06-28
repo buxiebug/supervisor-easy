@@ -92,7 +92,7 @@ programs=celery,test
 
 - *GROUPS* is defined to classify applications as you wish. Attribute name is used to name the group. 
 - *apps* is a list of applications. 
-- Every string in 'apps' is defined as `server_name.group_name:application_name`. 
+- Each item in 'apps' is defined as `server_name.group_name:application_name`. 
 - *application_name* correspond to 'test' in '[program:test]' in the supervisord.conf. 
 - *group_name* correspond to 'test' in '[group:test]'  in the supervisord.conf.
 - *server_name* is the custom name defined for the Server such as 'celery1' in 'Server(name='celery1'....
