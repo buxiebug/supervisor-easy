@@ -97,7 +97,7 @@ programs=celery,test
 - *group_name* correspond to 'test' in '[group:test]'  in the supervisord.conf.
 - *server_name* is the custom name defined for the Server such as 'celery1' in 'Server(name='celery1'....
 
-## Run: python webui.py to test your application.
+## Run: `python webui.py` to test your application.
 > Don't use `python webui.py` to your product environment。 A better way is to choose a uwsgi server to deploy your application. Such as uwsgi.
 
 ## Todos
