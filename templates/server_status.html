@@ -1,0 +1,69 @@
+<h3>{{uri}}</h3>
+<table class="table table-striped">
+    <tr>
+        <th colspan="8">
+            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
+                    title="Caution: start apps in the group!" onclick="batch_server_opt('{{server_id}}', 'start')">Batch
+                start
+            </button>
+            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
+                    title="Caution: stop apps in the group!" onclick="batch_server_opt('{{server_id}}', 'stop')">Batch
+                stop
+            </button>
+            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
+                    title="Caution: restart apps in the group!" onclick="batch_server_opt('{{server_id}}', 'restart')">
+                Batch
+                restart
+            </button>
+        </th>
+    </tr>
+    <tr>
+        <th width="10%">state</th>
+        <th width="10%">app</thw>
+        <th width="40%">location</th>
+        <th width="30%">description</th>
+        <th colspan="4" width="10%">operation</th>
+    </tr>
+    {% for app in apps%}
+    <tr>
+        <td>
+            {% if app.get('state') == 0 %}
+                <span style="background-color: lightgray">
+                 {% elif app.get('state') == 10 %}
+                <span style="background-color: yellow">
+                 {% else %}
+                <span style="background-color: lightgreen">
+                    {% endif %}
+                    {{app.get('statename')}}
+                </span>
+        </td>
+        <td>{{app.get('name')}}</td>
+        <td>{{'{}@{}:{}'.format(app.get('user'), app.get('host'), app.get('port'))}}</td>
+        <td>{{app.get('description')}}</td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'start')">
+                start
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'restart')">
+                restart
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}', 'stop')">
+                stop
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-primary btn-xs"
+                    onclick="tail_log('{{app.get('id')}}', '{{app.get('group')}}', '{{app.get('name')}}')">
+                tail
+            </button>
+        </td>
+        </td>
+        {% endfor %}
+</table>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block hovor %}
+<ul class="nav nav-pills">
+    <li role="presentation"><a href="/">Group List</a></li>
+    <li role="presentation" class="active"><a href="/servers">Server List</a></li>
+</ul>
+{% endblock %}
+{% block body %}
+<div class="page-header">
+    <h1>Servers List
+        <small>controlled by supervisor</small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            {% for server in servers %}
+            <li role="presentation" style="background-color: lemonchiffon  ">
+                <a href="#" onclick="show_server_status('{{server.id}}')">
+                    {{ server.user }}@{{server.host}}:{{server.port}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-9" id="server_div">
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
