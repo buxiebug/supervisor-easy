@@ -1,88 +1,107 @@
 {% extends "base.html" %}
 {% block hovor %}
-<ul class="nav nav-pills">
-    <li role="presentation" class="active"><a href="/">Group List</a></li>
-    <li role="presentation"><a href="/servers">Server List</a></li>
-</ul>
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="/">Group List</a></li>
+        <li role="presentation"><a href="/servers">Server List</a></li>
+    </ul>
 {% endblock %}
 {% block body %}
-<div class="page-header">
-    <h1>Group List
-        <small>custom by user</small>
-    </h1>
-</div>
-{% for app in apps%}
-<table class="table table-striped">
-    <tr>
-        <th colspan="3">group : {{app[0]}}</th>
-        <th colspan="5">
-            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
-                    title="Caution: start apps in the group!" onclick="batch_group_opt('{{app[0]}}', 'start')">Batch
-                start
-            </button>
-            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
-                    title="Caution: stop apps in the group!" onclick="batch_group_opt('{{app[0]}}', 'stop')">Batch
-                stop
-            </button>
-            <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top"
-                    title="Caution: restart apps in the group!" onclick="batch_group_opt('{{app[0]}}', 'restart')">
-                Batch
-                restart
-            </button>
-        </th>
-    </tr>
-    <tr>
-        <th width="10%">state</th>
-        <th width="10%">app</thw>
-        <th width="40%">location</th>
-        <th width="30%">description</th>
-        <th colspan="4" width="10%">operation</th>
-    </tr>
-    {% for info in app[1] %}
+    <div class="page-header">
+        <h1>Group List
+            <small>custom by user</small>
+        </h1>
+    </div>
+    {% for app in apps %}
+        <div class="panel-group" role="tablist">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4><strong><a class="collapsed" role="button" data-toggle="collapse" href="#{{ app[0] }}"
+                                           aria-expanded="false">
+                                {{ app[0] }}
+                            </a></strong></h4>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Caution: start apps in the group!"
+                                    onclick="batch_group_opt('{{ app[0] }}', 'start')">Batch
+                                start
+                            </button>
+                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Caution: stop apps in the group!"
+                                    onclick="batch_group_opt('{{ app[0] }}', 'stop')">
+                                Batch
+                                stop
+                            </button>
+                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Caution: restart apps in the group!"
+                                    onclick="batch_group_opt('{{ app[0] }}', 'restart')">
+                                Batch
+                                restart
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-    <tr>
-        <td>
-            {% if info.get('state') == 0 %}
-                <span style="background-color: lightgray">
-                 {% elif info.get('state') == 10 %}
-                <span style="background-color: yellow">
-                 {% else %}
-                <span style="background-color: lightgreen">
-                    {% endif %}
-                    {{info.get('statename')}}
-                </span>
-        </td>
-        <td>{{info.get('name')}}</td>
-        <td>{{'{}@{}:{}'.format(info.get('user'), info.get('host'), info.get('port'))}}</td>
-        <td>{{info.get('description')}}</td>
-        <td>
-            <button class="btn btn-primary btn-xs"
-                    onclick="app_opt(this,'{{info.get('id')}}', '{{info.get('group')}}', '{{info.get('name')}}', 'start')">
-                start
-            </button>
-        </td>
-        <td>
-            <button class="btn btn-primary btn-xs"
-                    onclick="app_opt(this, '{{info.get('id')}}', '{{info.get('group')}}', '{{info.get('name')}}', 'restart')">
-                restart
-            </button>
-        </td>
-        <td>
-            <button class="btn btn-primary btn-xs"
-                    onclick="app_opt(this,'{{info.get('id')}}', '{{info.get('group')}}', '{{info.get('name')}}', 'stop')">
-                stop
-            </button>
-        </td>
-        <td>
-            <button class="btn btn-primary btn-xs"
-                    onclick="tail_log('{{info.get('id')}}', '{{info.get('group')}}', '{{info.get('name')}}')">
-                tail
-            </button>
-        </td>
-        </td>
-        {% endfor %}
-</table>
-{% endfor %}
+                <div id="{{ app[0] }}" class="panel-collapse collapse" role="tabpanel"
+                     aria-expanded="false" style="height: 0px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th width="10%">state</th>
+                            <th width="10%">app</thw>
+                            <th width="40%">location</th>
+                            <th width="30%">description</th>
+                            <th colspan="4" width="10%">operation</th>
+                        </tr>
+                        {% for info in app[1] %}
+
+                            <tr>
+                            <td>
+                                {% if info.get('state') == 0 %}
+                                    <span style="background-color: lightgray">
+                                {% elif info.get('state') == 10 %}
+                                    <span style="background-color: yellow">
+                                {% else %}
+                                    <span style="background-color: lightgreen">
+                                {% endif %}
+                                {{ info.get('statename') }}
+                                </span>
+                            </td>
+                            <td>{{ info.get('name') }}</td>
+                            <td>{{ '{}@{}:{}'.format(info.get('user'), info.get('host'), info.get('port')) }}</td>
+                            <td>{{ info.get('description') }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs"
+                                        onclick="app_opt(this,'{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'start')">
+                                    start
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs"
+                                        onclick="app_opt(this, '{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'restart')">
+                                    restart
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs"
+                                        onclick="app_opt(this,'{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'stop')">
+                                    stop
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs"
+                                        onclick="tail_log('{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}')">
+                                    tail
+                                </button>
+                            </td>
+                            </td>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 

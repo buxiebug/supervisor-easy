@@ -4,6 +4,7 @@ __author__ = 'brianyang'
 import time
 import xmlrpclib
 from uuid import uuid4
+import logging
 
 
 class Server(object):
@@ -23,7 +24,12 @@ class Server(object):
         self.rpc_proxy = xmlrpclib.Server('http://%s:%s@%s:%d/RPC2' % (self.user, self.password, self.host, self.port))
 
     def get_process_info(self, app_name):
-        process_info = self.rpc_proxy.supervisor.getProcessInfo(app_name)
+        process_info = {}
+        try:
+            process_info = self.rpc_proxy.supervisor.getProcessInfo(app_name)
+        except Exception, e:
+            logging.error(e)
+
         process_info['host'] = self.host
         process_info['port'] = self.port
         process_info['user'] = self.user
