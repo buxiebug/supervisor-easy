@@ -73,19 +73,19 @@
                             <td>{{ info.get('description') }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs"
-                                        onclick="app_opt(this,'{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'start')">
+                                        onclick="app_opt('{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'start')">
                                     start
                                 </button>
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-xs"
-                                        onclick="app_opt(this, '{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'restart')">
+                                        onclick="app_opt('{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'restart')">
                                     restart
                                 </button>
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-xs"
-                                        onclick="app_opt(this,'{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'stop')">
+                                        onclick="app_opt('{{ info.get('id') }}', '{{ info.get('group') }}', '{{ info.get('name') }}', 'stop')">
                                     stop
                                 </button>
                             </td>
